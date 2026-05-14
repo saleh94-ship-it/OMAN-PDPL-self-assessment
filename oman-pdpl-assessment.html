@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نموذج التقييم الذاتي | PDPL Self-Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a3a5c;
+    --primary-light: #2563a8;
+    --accent: #c8963e;
+    --accent-light: #f0c06a;
+    --bg: #f7f5f0;
+    --bg-card: #ffffff;
+    --bg-section: #f0ede6;
+    --text: #1a1a1a;
+    --text-muted: #5a5a5a;
+    --border: #d8d2c8;
+    --yes-color: #1a6b3a;
+    --yes-bg: #e8f5ee;
+    --no-color: #8b1a1a;
+    --no-bg: #faeaea;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  body.ltr {
+    font-family: 'IBM Plex Sans', 'IBM Plex Sans Arabic', sans-serif;
+  }
+
+  /* Header */
+  .header {
+    background: var(--primary);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  }
+
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .header-titles { flex: 1; }
+
+  .header-title {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #ffffff;
+  }
+
+  .header-subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 3px;
+  }
+
+  .lang-toggle {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    padding: 7px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .lang-toggle:hover { background: rgba(255,255,255,0.22); }
+
+  /* Progress bar */
+  .progress-bar-wrap {
+    background: var(--primary);
+    padding: 0 24px 12px;
+  }
+  .progress-bar-inner { max-width: 860px; margin: 0 auto; }
+  .progress-track {
+    height: 4px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent-light);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 5px;
+    text-align: center;
+  }
+
+  /* Main */
+  .main { max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  /* Intro card */
+  .intro-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+  }
+
+  .intro-card h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .intro-card h2::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 16px;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .intro-steps { list-style: none; counter-reset: steps; }
+  .intro-steps li {
+    counter-increment: steps;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--bg-section);
+  }
+  .intro-steps li:last-child { border-bottom: none; }
+  .intro-steps li::before {
+    content: counter(steps);
+    background: var(--primary);
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .note-box {
+    background: #fef9ee;
+    border: 1px solid #e8d49a;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: #6b4a10;
+    margin-top: 14px;
+    line-height: 1.6;
+  }
+
+  /* Section */
+  .section-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .section-header {
+    background: var(--primary);
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-num {
+    background: var(--accent);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    color: white;
+    font-size: 14.5px;
+    font-weight: 600;
+  }
+
+  .section-body { padding: 0; }
+
+  /* Question row */
+  .q-row {
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--bg-section);
+    transition: background 0.15s;
+  }
+  .q-row:last-child { border-bottom: none; }
+  .q-row.answered-yes { background: #f5fbf7; }
+  .q-row.answered-no { background: #fdf5f5; }
+
+  .q-text {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .q-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--bg-section);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    display: none;
+  }
+
+  .q-hint.open { display: block; }
+
+  .q-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn-yn {
+    padding: 7px 20px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    background: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+
+  .btn-yn.yes { color: var(--yes-color); border-color: #a8d8ba; }
+  .btn-yn.yes.active { background: var(--yes-bg); border-color: var(--yes-color); }
+  .btn-yn.no { color: var(--no-color); border-color: #e0a8a8; }
+  .btn-yn.no.active { background: var(--no-bg); border-color: var(--no-color); }
+  .btn-yn:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+
+  .hint-toggle {
+    background: none;
+    border: none;
+    color: var(--primary-light);
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    font-family: inherit;
+    margin-inline-start: auto;
+  }
+
+  /* Conditional sub-questions */
+  .sub-questions {
+    display: none;
+    border-top: 1px dashed #c8d8e8;
+    background: #f4f8fd;
+    padding: 0;
+  }
+  .sub-questions.visible { display: block; }
+  .sub-questions .q-row { background: transparent; }
+  .sub-questions .q-row:first-child { border-top: none; }
+  .sub-q-label {
+    font-size: 11px;
+    color: var(--primary-light);
+    font-weight: 600;
+    margin-bottom: 4px;
+    letter-spacing: 0.03em;
+  }
+
+  /* Submit */
+  .submit-area {
+    text-align: center;
+    margin: 32px 0 0;
+  }
+
+  .btn-submit {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 14px 48px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(26,58,92,0.3);
+  }
+  .btn-submit:hover { background: var(--primary-light); transform: translateY(-1px); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .unanswered-notice {
+    font-size: 12.5px;
+    color: #8b3a00;
+    margin-top: 10px;
+    display: none;
+  }
+
+  /* Results */
+  .results-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 32px 28px;
+    margin-top: 32px;
+    display: none;
+    animation: fadeUp 0.4s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .results-card.visible { display: block; }
+
+  .results-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--bg-section);
+  }
+
+  .score-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .score-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 6px solid var(--primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .score-pct {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+  }
+
+  .score-pts {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .score-details { flex: 1; min-width: 180px; }
+
+  .compliance-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .level-0 { background: #fde8e8; color: #8b1a1a; }
+  .level-1 { background: #fdeee0; color: #7a3a00; }
+  .level-2 { background: #fdf6df; color: #6b4a00; }
+  .level-3 { background: #e8f5ee; color: #1a5a30; }
+  .level-4 { background: #d8f0e8; color: #0f4a28; }
+
+  .compliance-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 6px;
+  }
+
+  /* Level bar */
+  .level-bar {
+    display: flex;
+    border-radius: 6px;
+    overflow: hidden;
+    height: 10px;
+    margin-bottom: 8px;
+    gap: 2px;
+  }
+  .level-seg {
+    flex: 1;
+    background: var(--bg-section);
+    transition: background 0.3s;
+  }
+  .level-seg.active-0 { background: #e05c5c; }
+  .level-seg.active-1 { background: #e08c40; }
+  .level-seg.active-2 { background: #d4b840; }
+  .level-seg.active-3 { background: #4caf70; }
+  .level-seg.active-4 { background: #1a8a50; }
+
+  .level-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  /* Section breakdown */
+  .breakdown-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .breakdown-list { list-style: none; }
+  .breakdown-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12.5px;
+    color: var(--text);
+    padding: 7px 0;
+    border-bottom: 1px solid var(--bg-section);
+  }
+  .breakdown-list li:last-child { border-bottom: none; }
+
+  .bk-name { flex: 1; }
+  .bk-score {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+  .bk-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .reset-btn {
+    margin-top: 24px;
+    background: none;
+    border: 1.5px solid var(--border);
+    color: var(--text-muted);
+    padding: 9px 24px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+  /* RTL / LTR helpers */
+  body.ltr { direction: ltr; }
+  body.ltr .intro-card h2::before { margin-right: 0; margin-left: 0; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .header-inner { padding: 14px 16px; }
+    .header-title { font-size: 14px; }
+    .main { padding: 18px 12px 48px; }
+    .intro-card { padding: 18px 16px; }
+    .q-row { padding: 14px 16px; }
+    .section-header { padding: 12px 16px; }
+    .score-row { flex-direction: column; align-items: center; text-align: center; }
+    .btn-submit { padding: 12px 36px; font-size: 14px; }
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-titles">
+      <div class="header-title" id="hdr-title">نموذج التقييم الذاتي للمتحكم / المعالج</div>
+      <div class="header-subtitle" id="hdr-sub">قانون حماية البيانات الشخصية (6/2022) ولائحته التنفيذية (34/2024)</div>
+    </div>
+    <button class="lang-toggle" id="langBtn" onclick="toggleLang()">English</button>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-inner">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label" id="progressLabel">0 / 0</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="intro-card" id="introCard">
+    <h2 id="intro-title">وصف الخدمة</h2>
+    <p id="intro-desc" style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:14px;">
+      هذه الخدمة تمكّن <strong>المتحكم / المعالج</strong> من معرفة مستوى التزامه بأحكام قانون حماية البيانات الشخصية ولائحته التنفيذية.
+    </p>
+    <h2 id="intro-how">آلية التقييم</h2>
+    <ul class="intro-steps" id="intro-steps">
+      <li>أجب على جميع الأسئلة بـ <strong>نعم</strong> أو <strong>لا</strong>.</li>
+      <li>سيتم احتساب مستوى الالتزام تلقائيًا بناءً على إجاباتك.</li>
+      <li>بعد الاحتساب ستظهر نتيجتك ومستوى امتثالك مع تفصيل لكل قسم.</li>
+    </ul>
+    <div class="note-box" id="introNote">
+      ملاحظة: يمكن الضغط على <strong>"تفاصيل"</strong> بجانب كل سؤال لعرض الشرح القانوني التفصيلي. الأسئلة ذات الخلفية الزرقاء الفاتحة تظهر فقط عند الإجابة بـ نعم على السؤال السابق.
+    </div>
+  </div>
+
+  <div id="questionsContainer"></div>
+
+  <div class="submit-area">
+    <button class="btn-submit" id="submitBtn" onclick="calculateScore()">
+      <span id="submitLabel">احتساب النتيجة</span>
+    </button>
+    <div class="unanswered-notice" id="unansweredNotice"></div>
+  </div>
+
+  <div class="results-card" id="resultsCard">
+    <div class="results-title" id="resultsTitle">نتيجة التقييم</div>
+    <div class="score-row">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-pct" id="scorePct">0%</div>
+        <div class="score-pts" id="scorePts">0/0</div>
+      </div>
+      <div class="score-details">
+        <div class="compliance-badge" id="complianceBadge">—</div>
+        <div class="compliance-desc" id="complianceDesc"></div>
+      </div>
+    </div>
+    <div class="level-bar" id="levelBar">
+      <div class="level-seg" id="seg0"></div>
+      <div class="level-seg" id="seg1"></div>
+      <div class="level-seg" id="seg2"></div>
+      <div class="level-seg" id="seg3"></div>
+      <div class="level-seg" id="seg4"></div>
+    </div>
+    <div class="level-labels">
+      <span id="ll0">0%</span><span id="ll1">21%</span><span id="ll2">41%</span><span id="ll3">61%</span><span id="ll4">81%</span><span>100%</span>
+    </div>
+    <div class="breakdown-title" id="breakdownTitle">تفصيل النتيجة حسب القسم</div>
+    <ul class="breakdown-list" id="breakdownList"></ul>
+    <div style="text-align:center;">
+      <button class="reset-btn" onclick="resetAssessment()" id="resetBtn">إعادة التقييم</button>
+    </div>
+  </div>
+
+  <div class="footer-note" id="footerNote">
+    هذا النموذج للتقييم الذاتي فقط ولا يُعدّ رأيًا قانونيًا رسميًا.
+  </div>
+</div>
+
+<script>
+const DATA = {
+  ar: {
+    langBtn: "English",
+    hdrTitle: "نموذج التقييم الذاتي للمتحكم / المعالج",
+    hdrSub: "قانون حماية البيانات الشخصية (6/2022) ولائحته التنفيذية (34/2024)",
+    introTitle: "وصف الخدمة",
+    introDesc: "هذه الخدمة تمكّن <strong>المتحكم / المعالج</strong> من معرفة مستوى التزامه بأحكام قانون حماية البيانات الشخصية ولائحته التنفيذية.",
+    introHow: "آلية التقييم",
+    introSteps: ["أجب على جميع الأسئلة بـ <strong>نعم</strong> أو <strong>لا</strong>.", "سيتم احتساب مستوى الالتزام تلقائيًا بناءً على إجاباتك.", "بعد الاحتساب ستظهر نتيجتك ومستوى امتثالك مع تفصيل لكل قسم."],
+    introNote: "ملاحظة: يمكن الضغط على <strong>\"تفاصيل\"</strong> بجانب كل سؤال لعرض الشرح القانوني التفصيلي. الأسئلة المميزة تظهر فقط عند الإجابة بـ نعم على السؤال السابق.",
+    yesBtn: "نعم",
+    noBtn: "لا",
+    detailsBtn: "تفاصيل ▾",
+    detailsHide: "إخفاء ▴",
+    subLabel: "سؤال تفصيلي مرتبط:",
+    submitLabel: "احتساب النتيجة",
+    unanswered: "يرجى الإجابة على جميع الأسئلة قبل الاحتساب. الأسئلة غير المجابة: ",
+    resultsTitle: "نتيجة التقييم",
+    breakdownTitle: "تفصيل النتيجة حسب القسم",
+    resetBtn: "إعادة التقييم",
+    footerNote: "هذا النموذج للتقييم الذاتي فقط ولا يُعدّ رأيًا قانونيًا رسميًا.",
+    progressOf: "تمت الإجابة على",
+    progressSuffix: "سؤالاً",
+    levels: [
+      { label: "غير ممتثل", desc: "مستوى نضج أوّلي — غياب معظم متطلبات قانون حماية البيانات الشخصية؛ لا توجد سياسات وإجراءات واضحة لحماية البيانات الشخصية.", cls: "level-0" },
+      { label: "ممتثل جزئيًا", desc: "مستوى نضج أساسي — توجد سياسات مكتوبة وجهود أوّلية لتطبيق متطلبات القانون واللائحة.", cls: "level-1" },
+      { label: "ممتثل مؤسسيًا", desc: "مستوى نضج متوسط — توجد منظومة واضحة لحماية البيانات تشمل سياسات وإجراءات ومعايير لضمان استمرارية الامتثال.", cls: "level-2" },
+      { label: "ممتثل إلى حد كبير", desc: "تطبيق منظم لمعظم متطلبات القانون مع سياسات وإجراءات شاملة، مع بقاء بعض الجوانب التي تحتاج إلى استكمال وتحسين.", cls: "level-3" },
+      { label: "ممتثل كليًا", desc: "تطبيق شامل لمتطلبات القانون من خلال السياسات والإجراءات وآليات التحسين المستمر بما يضمن الحفاظ على الامتثال التام.", cls: "level-4" }
+    ],
+    sections: [
+      {
+        title: "الإجراءات التنظيمية",
+        questions: [
+          {
+            q: "هل تم وضع الضوابط والإجراءات الواجب الالتزام بها عند معالجة البيانات الشخصية؟",
+            hint: "على وجه الخصوص: تحديد المخاطر التي قد تقع على صاحب البيانات جراء المعالجة، وإجراءات نقل وتحويل البيانات، والتدابير الفنية لضمان تنفيذ المعالجة. ويلتزم المتحكم بإخطار صاحب البيانات كتابةً قبل البدء بالمعالجة، مع بيان: بيانات المتحكم والمعالج، وبيانات التواصل مع مسؤول حماية البيانات، والغرض من المعالجة ومصدر البيانات، ووصف شامل للمعالجة وإجراءاتها، وحقوق صاحب البيانات."
+          }
+        ]
+      },
+      {
+        title: "سياسة حماية البيانات الشخصية",
+        questions: [
+          {
+            q: "هل تم إعداد سياسة حماية البيانات الشخصية الخاصة بكم؟",
+            hint: "يجب أن تتضمن السياسة على الأقل آلية وإجراءات ممارسة صاحب البيانات لحقوقه المنصوص عليها في القانون واللائحة."
+          },
+          {
+            q: "هل تم وضع هذه السياسة في مكان ظاهر يتيح لصاحب البيانات الاطلاع عليها قبل البدء في معالجة بياناته؟",
+            hint: "يجب أن تكون السياسة في مكان سهل الوصول وواضح قبل جمع أي بيانات شخصية."
+          }
+        ]
+      },
+      {
+        title: "حقوق صاحب البيانات الشخصية",
+        questions: [
+          {
+            q: "هل تم إعداد طلب معالجة البيانات الشخصية من صاحب البيانات بصورة واضحة وصريحة ومفهومة؟",
+            hint: "يجب أن يكون طلب المعالجة مصاغًا بلغة واضحة وبسيطة يفهمها صاحب البيانات."
+          },
+          {
+            q: "هل يتم الحصول على الموافقة الكتابية والصريحة لصاحب البيانات لغرض معالجة بياناته؟",
+            hint: "يجب أن تكون الموافقة مكتوبة وصريحة ومحددة لغرض المعالجة."
+          },
+          {
+            q: "هل تم إعداد ضوابط وإجراءات لتمكين صاحب البيانات من ممارسة حقوقه كإلغاء الموافقة وتعديل البيانات وطلب الحصول على نسخة منها ونقلها ومحوها؟",
+            hint: "لا بد من وجود آلية واضحة تمكّن صاحب البيانات من: إلغاء موافقته، وتعديل بياناته أو تحديثها أو حجبها، والحصول على نسخة من بياناته، ونقل بياناته إلى متحكم آخر، وطلب محو بياناته، والإخطار بأي اختراق لبياناته."
+          }
+        ]
+      },
+      {
+        title: "تصريح معالجة البيانات الشخصية",
+        questions: [
+          {
+            q: "هل يعالج المتحكم أيًّا من البيانات الشخصية الواردة في المادة (5) من قانون حماية البيانات الشخصية؟",
+            hint: "تشمل البيانات الحساسة الواردة في المادة (5): البيانات الصحية، الجينية، البيومترية، الدينية، والقضائية وغيرها."
+          },
+          {
+            q: "هل تم الحصول على التصريح من الوزارة لمعالجة هذه البيانات الحساسة؟",
+            hint: "يتطلب معالجة البيانات الواردة في المادة (5)، بالإضافة إلى الموافقة الصريحة لصاحب البيانات، الحصول على تصريح من الوزارة المختصة.",
+            conditional: true
+          }
+        ]
+      },
+      {
+        title: "معالجة البيانات الشخصية للطفل",
+        questions: [
+          {
+            q: "هل تم الحصول على الموافقة الصريحة لولي أمر الطفل إذا كان المتحكم يعالج بيانات شخصية للطفل؟",
+            hint: "يجب الحصول على الموافقة الصريحة الكتابية من ولي الأمر قبل معالجة أي بيانات شخصية تخص الطفل."
+          },
+          {
+            q: "هل تم التقيد بضوابط معالجة البيانات الشخصية للطفل (أن يكون الهدف واضحًا ومباشرًا وآمنًا وخاليًا من التدليس، ومقتصرًا على الحد الأدنى من البيانات)؟",
+            hint: "يجب أن تكون المعالجة محدودة بالحد الأدنى الضروري لتحقيق الغرض، وأن تكون خالية من أي تضليل."
+          },
+          {
+            q: "هل تم توفير الوسائل التي تمكّن ولي أمر الطفل من الوصول إلى البيانات الشخصية لطفله لتحديثها أو تعديلها؟",
+            hint: "يجب توفير وسائل تمكّن ولي الأمر من الاطلاع على بيانات طفله وتعديلها، ولا يجوز الإفصاح عن بيانات الطفل للغير إلا بموافقة ولي الأمر."
+          }
+        ]
+      },
+      {
+        title: "المواد الإعلانية / التسويقية / الأغراض التجارية",
+        questions: [
+          {
+            q: "هل تم استيفاء متطلبات عملية معالجة البيانات الشخصية قبل إرسال أي مواد إعلانية أو تسويقية أو ذات أغراض تجارية؟",
+            hint: "يجب على المتحكم قبل إرسال أي مواد إعلانية أو تسويقية: الحصول على الموافقة الكتابية، وإخطار صاحب البيانات بوسيلة الإرسال، وتحديد آلية إيقاف الاستقبال، والتوقف فور تلقي طلب الإيقاف وبدون مقابل."
+          }
+        ]
+      },
+      {
+        title: "النشر / المشاركة / الإفصاح عن البيانات الحساسة (المادة 5)",
+        questions: [
+          {
+            q: "هل تم وضع إجراءات في حالة الإفصاح عن البيانات الشخصية المنصوص عليها في المادة (5) من قانون حماية البيانات الشخصية؟",
+            hint: "يجب أن يكون النشر أو المشاركة أو الإفصاح عن هذه البيانات في الحدود والحالات المقررة قانونًا، أو تنفيذًا لحكم أو قرار قضائي."
+          }
+        ]
+      },
+      {
+        title: "سرية البيانات الشخصية",
+        questions: [
+          {
+            q: "هل تم وضع ضوابط وإجراءات للالتزام بسرية البيانات الشخصية؟",
+            hint: "يجب على المتحكم: وضع أنظمة إلكترونية لحماية البيانات من الوصول غير المشروع، وأنظمة استعادة البيانات عند حدوث حوادث، وإجراء اختبارات دورية لفعالية الإجراءات التقنية."
+          }
+        ]
+      },
+      {
+        title: "الاحتفاظ بسجلات معالجة البيانات الشخصية",
+        questions: [
+          {
+            q: "هل تم تحديد مدة زمنية للاحتفاظ بسجلات معالجة البيانات الشخصية تتناسب مع الغرض؟",
+            hint: "يجب أن تكون مدة الاحتفاظ محددة ومتناسبة مع الغرض من المعالجة."
+          },
+          {
+            q: "هل تم تحديد سبب الاحتفاظ بهذه السجلات (محددًا ومشروعًا) مع توفير أنظمة الحماية الفنية للاحتفاظ بمستندات المعالجة؟",
+            hint: "يجب أن يكون سبب الاحتفاظ بالسجلات محددًا ومشروعًا مع توفير الأنظمة التقنية اللازمة لحمايتها."
+          }
+        ]
+      },
+      {
+        title: "سجل أنشطة معالجة البيانات الشخصية",
+        questions: [
+          {
+            q: "هل تم إنشاء سجل خاص لأنشطة معالجة البيانات الشخصية؟",
+            hint: "يجب تحديث سجل أنشطة المعالجة بشكل مستمر ويشمل: بيانات مسؤول حماية البيانات، المدد الزمنية للمعالجة وقيودها، آلية المحو أو التعديل، والغرض من المعالجة وغيرها من البيانات المنصوص عليها في المادة (28) من اللائحة التنفيذية."
+          }
+        ]
+      },
+      {
+        title: "اختراق البيانات الشخصية",
+        questions: [
+          {
+            q: "هل تم وضع إجراءات داخلية للإبلاغ عن حوادث اختراق البيانات الشخصية، بما يشمل إجراءات إبلاغ الإدارة المختصة وإخطار صاحب البيانات؟",
+            hint: "يجب وضع إجراءات داخلية واضحة للتعامل مع حوادث اختراق البيانات، تشمل آليات الإبلاغ الداخلي والخارجي وإخطار صاحب البيانات."
+          },
+          {
+            q: "هل تم تسجيل بلاغ اختراق البيانات الشخصية؟",
+            hint: "يجب توثيق جميع حوادث الاختراق في سجل أنشطة المعالجة."
+          },
+          {
+            q: "هل تم إبلاغ الإدارة المختصة خلال 72 ساعة من تاريخ العلم بالاختراق إذا كان من شأنه أن يؤدي إلى خطر يهدد حقوق أصحاب البيانات؟",
+            hint: "يجب الإبلاغ خلال 72 ساعة ويشمل البلاغ: وصف وتفاصيل البيانات المخترقة، وبيانات التواصل، والآثار المحتملة، والإجراءات التصحيحية المتخذة والمقترحة.",
+            conditional: true
+          },
+          {
+            q: "هل تم إخطار صاحب البيانات خلال 72 ساعة إذا كان الاختراق من شأنه أن يسبب ضررًا جسيمًا أو مخاطر عالية؟",
+            hint: "يجب أن يتضمن الإخطار: نوع الاختراق وطبيعته، وتفاصيل البيانات التي تعرضت للاختراق، والتوصيات للحد من آثاره.",
+            conditional: true
+          },
+          {
+            q: "هل تم توثيق حالات الاختراق وأسبابها ونتائجها والإجراءات التصحيحية المتخذة والاحتفاظ بها في سجل أنشطة معالجة البيانات وفق المدة التي تحددها الإدارة المختصة؟",
+            hint: "يجب توثيق جميع تفاصيل الاختراق والاحتفاظ بهذه السجلات للمدة التي تحددها الإدارة."
+          }
+        ]
+      },
+      {
+        title: "مسؤول حماية البيانات الشخصية",
+        questions: [
+          {
+            q: "هل تم تعيين مسؤول حماية البيانات الشخصية مع بيان أدواره ومسؤولياته؟",
+            hint: "يجب أن يكون مسؤول حماية البيانات مؤهلًا لأداء مهامه بموجب المادة (35) من اللائحة التنفيذية: تقديم المقترحات والاستشارات، متابعة تنفيذ السياسات والالتزامات القانونية، والتنسيق مع الإدارة المختصة."
+          },
+          {
+            q: "هل تم نشر البيانات المتعلقة بمسؤول حماية البيانات الشخصية لتمكين صاحب البيانات من التواصل معه؟",
+            hint: "يجب تمكين صاحب البيانات من حقه في الاتصال بمسؤول حماية البيانات في جميع المسائل المتعلقة بمعالجة بياناته."
+          }
+        ]
+      },
+      {
+        title: "نقل وتحويل البيانات الشخصية خارج الحدود",
+        questions: [
+          {
+            q: "في حال رغبة المتحكم بنقل أو تحويل البيانات الشخصية خارج حدود سلطنة عُمان؛ هل تم الالتزام بالضوابط والإجراءات المنصوص عليها في الفصل الثامن من اللائحة التنفيذية؟",
+            hint: "يلتزم المتحكم بالحصول على الموافقة الصريحة لصاحب البيانات، وضمان ألا يترتب على النقل مساس بالأمن الوطني، وضمان أن الجهة المتلقية توفر مستوى حماية لا يقل عن المقرر في القانون. لا تشترط الموافقة إذا كان النقل تنفيذًا لالتزام دولي أو تم بطريقة مجهولة الهوية."
+          }
+        ]
+      }
+    ]
+  },
+  en: {
+    langBtn: "العربية",
+    hdrTitle: "Controller / Processor Self-Assessment Form",
+    hdrSub: "Oman Personal Data Protection Law (6/2022) and Executive Regulations (34/2024)",
+    introTitle: "About This Tool",
+    introDesc: "This tool enables <strong>controllers and processors</strong> to assess their level of compliance with the Oman Personal Data Protection Law and its Executive Regulations.",
+    introHow: "How It Works",
+    introSteps: ["Answer all questions with <strong>Yes</strong> or <strong>No</strong>.", "Your compliance score will be calculated automatically based on your answers.", "Your score, compliance level, and a section-by-section breakdown will be displayed."],
+    introNote: "Note: Click <strong>\"Details\"</strong> next to any question to view the detailed legal explanation. Questions marked as conditional appear only when the previous question is answered Yes.",
+    yesBtn: "Yes",
+    noBtn: "No",
+    detailsBtn: "Details ▾",
+    detailsHide: "Hide ▴",
+    subLabel: "Follow-up question:",
+    submitLabel: "Calculate Score",
+    unanswered: "Please answer all questions before calculating. Unanswered: ",
+    resultsTitle: "Assessment Results",
+    breakdownTitle: "Section-by-Section Breakdown",
+    resetBtn: "Restart Assessment",
+    footerNote: "This tool is for self-assessment purposes only and does not constitute official legal advice.",
+    progressOf: "Answered",
+    progressSuffix: "questions",
+    levels: [
+      { label: "Non-Compliant", desc: "Initial maturity level — most requirements of the Personal Data Protection Law are absent; no clear data protection policies or procedures.", cls: "level-0" },
+      { label: "Partially Compliant", desc: "Basic maturity level — written policies and initial efforts to apply the Law's requirements exist.", cls: "level-1" },
+      { label: "Institutionally Compliant", desc: "Intermediate maturity level — a clear data protection framework exists, including policies, procedures, and standards ensuring ongoing compliance.", cls: "level-2" },
+      { label: "Largely Compliant", desc: "Most Law requirements are applied systematically with comprehensive policies and procedures, though some areas still need completion.", cls: "level-3" },
+      { label: "Fully Compliant", desc: "All Law requirements are applied through comprehensive policies, procedures, and continuous improvement mechanisms, ensuring full ongoing compliance.", cls: "level-4" }
+    ],
+    sections: [
+      {
+        title: "Organizational Procedures",
+        questions: [
+          {
+            q: "Have controls and procedures been established for compliance when processing personal data?",
+            hint: "In particular: identifying risks to the data subject from processing, transfer and cross-border data transfer controls, and technical and procedural measures to ensure lawful processing. The controller must notify the data subject in writing before processing, including: controller/processor details, DPO contact information, purpose and source of data, a comprehensive description of processing, and the data subject's rights."
+          }
+        ]
+      },
+      {
+        title: "Personal Data Protection Policy",
+        questions: [
+          {
+            q: "Has a personal data protection policy been prepared?",
+            hint: "The policy must include at minimum the mechanism and procedures for data subjects to exercise their rights under the Law and Regulations."
+          },
+          {
+            q: "Has this policy been placed in a visible location that allows data subjects to review it before their data is processed?",
+            hint: "The policy must be easily accessible and visible before any personal data is collected."
+          }
+        ]
+      },
+      {
+        title: "Data Subject Rights",
+        questions: [
+          {
+            q: "Has the personal data processing request been prepared in a clear, explicit, and understandable manner?",
+            hint: "The processing request must be written in plain, clear language that the data subject can understand."
+          },
+          {
+            q: "Is written and explicit consent obtained from the data subject for the purpose of processing their data?",
+            hint: "Consent must be written, explicit, and specific to the purpose of processing."
+          },
+          {
+            q: "Have controls and procedures been established to enable data subjects to exercise their rights — including withdrawal of consent, rectification, obtaining a copy, data portability, and erasure?",
+            hint: "A clear mechanism must exist enabling data subjects to: withdraw consent, rectify or update or restrict their data, obtain a copy of their processed data, transfer data to another controller, request erasure, and be notified of any breach."
+          }
+        ]
+      },
+      {
+        title: "Special Category Data Processing Permit",
+        questions: [
+          {
+            q: "Does the controller process any personal data listed in Article (5) of the Personal Data Protection Law?",
+            hint: "Article (5) special category data includes: health, genetic, biometric, religious, criminal, and other sensitive data."
+          },
+          {
+            q: "Has a permit been obtained from the competent Ministry to process this special category data?",
+            hint: "Processing Article (5) data requires, in addition to the data subject's explicit consent, a permit from the competent Ministry.",
+            conditional: true
+          }
+        ]
+      },
+      {
+        title: "Processing Children's Personal Data",
+        questions: [
+          {
+            q: "Has explicit consent been obtained from the child's guardian if the controller processes a child's personal data?",
+            hint: "Written explicit consent must be obtained from the guardian before processing any personal data relating to a child."
+          },
+          {
+            q: "Have the controls for processing children's data been observed — with a clear, direct, safe, and non-deceptive purpose, limited to the minimum necessary data?",
+            hint: "Processing must be limited to the minimum necessary data, free from any deception or manipulation."
+          },
+          {
+            q: "Have means been provided to enable the child's guardian to access, update, or amend the child's personal data?",
+            hint: "Means must be provided for guardians to access and amend the child's data. Disclosure of children's data to third parties is not permitted without the guardian's explicit consent."
+          }
+        ]
+      },
+      {
+        title: "Advertising / Marketing / Commercial Purposes",
+        questions: [
+          {
+            q: "Have personal data processing requirements been met before sending any advertising, marketing, or commercial materials?",
+            hint: "Before sending marketing materials, the controller must: obtain written consent, inform the data subject of the communication channel, define the opt-out mechanism, and cease sending materials immediately upon receiving an opt-out request, at no cost."
+          }
+        ]
+      },
+      {
+        title: "Disclosure of Special Category Data (Article 5)",
+        questions: [
+          {
+            q: "Have procedures been established for the disclosure of personal data listed in Article (5) of the Personal Data Protection Law?",
+            hint: "Publication, sharing, or disclosure of Article (5) data must only occur within the legally prescribed limits, or in execution of a judicial ruling or decision."
+          }
+        ]
+      },
+      {
+        title: "Confidentiality of Personal Data",
+        questions: [
+          {
+            q: "Have controls and procedures been established to ensure the confidentiality of personal data?",
+            hint: "The controller must: implement electronic systems protecting data from unauthorized access, leakage, or misuse; establish data recovery systems for physical or technical incidents; and conduct regular testing of technical procedures."
+          }
+        ]
+      },
+      {
+        title: "Retention of Personal Data Processing Records",
+        questions: [
+          {
+            q: "Has a retention period been defined for personal data processing records that is proportionate to the purpose?",
+            hint: "The retention period must be defined and proportionate to the processing purpose."
+          },
+          {
+            q: "Has the reason for retaining these records been specified (specific and lawful), with technical protection systems provided for storing processing documents?",
+            hint: "The reason for retaining records must be specific and lawful, and appropriate technical systems must be in place to secure them."
+          }
+        ]
+      },
+      {
+        title: "Personal Data Processing Activity Log",
+        questions: [
+          {
+            q: "Has a dedicated log been created for personal data processing activities?",
+            hint: "The processing activity log must be continuously updated and include at minimum: DPO details, processing timeframes and restrictions, erasure/amendment mechanisms, purpose of processing, and other data specified in Article (28) of the Executive Regulations."
+          }
+        ]
+      },
+      {
+        title: "Personal Data Breaches",
+        questions: [
+          {
+            q: "Have internal procedures been established for reporting personal data breach incidents, including procedures for notifying the competent authority and the data subject?",
+            hint: "Clear internal procedures must exist for handling data breach incidents, covering internal and external reporting mechanisms and data subject notification."
+          },
+          {
+            q: "Has a data breach report been recorded?",
+            hint: "All breach incidents must be documented in the processing activity log."
+          },
+          {
+            q: "Was the competent authority notified within 72 hours of becoming aware of a breach that may pose a risk to data subjects' rights?",
+            hint: "Notification within 72 hours must include: description and details of breached data, contact information, possible impacts of the breach, and corrective/technical measures taken and proposed.",
+            conditional: true
+          },
+          {
+            q: "Was the data subject notified within 72 hours if the breach was likely to cause serious harm or high risks to them?",
+            hint: "Notification to the data subject must include: type and nature of the breach, details of compromised data, and recommendations to mitigate effects.",
+            conditional: true
+          },
+          {
+            q: "Have breach incidents been documented — including causes, consequences, and corrective measures — and retained in the processing activity log for the period specified by the competent authority?",
+            hint: "All breach details must be thoroughly documented and retained for the period specified by the competent authority."
+          }
+        ]
+      },
+      {
+        title: "Data Protection Officer (DPO)",
+        questions: [
+          {
+            q: "Has a Data Protection Officer been appointed with their roles and responsibilities defined?",
+            hint: "The DPO must be qualified to perform their duties under Article (35) of the Executive Regulations: providing proposals and advice, monitoring implementation of data protection policies and legal obligations, and coordinating with the competent authority."
+          },
+          {
+            q: "Has the DPO's contact information been published to enable data subjects to reach them?",
+            hint: "Data subjects must be able to contact the DPO on all matters related to the processing of their personal data."
+          }
+        ]
+      },
+      {
+        title: "Cross-Border Transfer of Personal Data",
+        questions: [
+          {
+            q: "If the controller intends to transfer or transmit personal data outside the Sultanate of Oman, have the controls and procedures in Chapter Eight of the Executive Regulations been complied with?",
+            hint: "The controller must: obtain the data subject's explicit consent, ensure the transfer does not compromise national security, and ensure the receiving entity provides a level of protection no less than that of the Law. Consent is not required if the transfer is based on an international treaty or if data is fully anonymized."
+          }
+        ]
+      }
+    ]
+  }
+};
+
+let currentLang = 'ar';
+let answers = {};
+
+function getLang() { return DATA[currentLang]; }
+
+function toggleLang() {
+  currentLang = currentLang === 'ar' ? 'en' : 'ar';
+  const html = document.documentElement;
+  const body = document.body;
+  if (currentLang === 'en') {
+    html.setAttribute('lang', 'en');
+    html.setAttribute('dir', 'ltr');
+    body.classList.add('ltr');
+  } else {
+    html.setAttribute('lang', 'ar');
+    html.setAttribute('dir', 'rtl');
+    body.classList.remove('ltr');
+  }
+  renderAll();
+}
+
+function renderAll() {
+  const L = getLang();
+  document.getElementById('langBtn').textContent = L.langBtn;
+  document.getElementById('hdr-title').textContent = L.hdrTitle;
+  document.getElementById('hdr-sub').textContent = L.hdrSub;
+  document.getElementById('intro-title').textContent = L.introTitle;
+  document.getElementById('intro-desc').innerHTML = L.introDesc;
+  document.getElementById('intro-how').textContent = L.introHow;
+  const stepsEl = document.getElementById('intro-steps');
+  stepsEl.innerHTML = L.introSteps.map(s => `<li>${s}</li>`).join('');
+  document.getElementById('introNote').innerHTML = L.introNote;
+  document.getElementById('submitLabel').textContent = L.submitLabel;
+  document.getElementById('resultsTitle').textContent = L.resultsTitle;
+  document.getElementById('breakdownTitle').textContent = L.breakdownTitle;
+  document.getElementById('resetBtn').textContent = L.resetBtn;
+  document.getElementById('footerNote').textContent = L.footerNote;
+
+  renderQuestions();
+  updateProgress();
+
+  // Re-render results if visible
+  if (document.getElementById('resultsCard').classList.contains('visible')) {
+    showResults();
+  }
+}
+
+function getQuestionId(sIdx, qIdx) { return `q_${sIdx}_${qIdx}`; }
+
+function renderQuestions() {
+  const L = getLang();
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML = '';
+
+  L.sections.forEach((section, sIdx) => {
+    const card = document.createElement('div');
+    card.className = 'section-card';
+    card.id = `section_${sIdx}`;
+
+    let headerHTML = `<div class="section-header">
+      <div class="section-num">${sIdx + 1}</div>
+      <div class="section-title">${section.title}</div>
+    </div><div class="section-body">`;
+
+    section.questions.forEach((q, qIdx) => {
+      const qid = getQuestionId(sIdx, qIdx);
+      const ans = answers[qid];
+      const isConditional = q.conditional;
+      headerHTML += buildQuestionHTML(q, qid, ans, isConditional, L, sIdx, qIdx);
+    });
+
+    headerHTML += '</div>';
+    card.innerHTML = headerHTML;
+    container.appendChild(card);
+  });
+
+  // Apply conditional visibility
+  L.sections.forEach((section, sIdx) => {
+    section.questions.forEach((q, qIdx) => {
+      if (q.conditional) {
+        updateConditionalVisibility(sIdx, qIdx);
+      }
+    });
+  });
+}
+
+function buildQuestionHTML(q, qid, ans, isConditional, L, sIdx, qIdx) {
+  const rowClass = ans === 'yes' ? 'answered-yes' : ans === 'no' ? 'answered-no' : '';
+  const hideStyle = isConditional ? 'display:none;' : '';
+  return `<div class="q-row ${rowClass}" id="row_${qid}" style="${hideStyle}">
+    ${isConditional ? `<div class="sub-q-label">${L.subLabel}</div>` : ''}
+    <div class="q-text">${q.q}</div>
+    ${q.hint ? `<button class="hint-toggle" onclick="toggleHint('hint_${qid}', this, '${L.detailsBtn}', '${L.detailsHide}')">${L.detailsBtn}</button>
+    <div class="q-hint" id="hint_${qid}">${q.hint}</div>` : ''}
+    <div class="q-controls">
+      <button class="btn-yn yes ${ans === 'yes' ? 'active' : ''}" onclick="setAnswer('${qid}', 'yes', ${sIdx}, ${qIdx})">${L.yesBtn}</button>
+      <button class="btn-yn no ${ans === 'no' ? 'active' : ''}" onclick="setAnswer('${qid}', 'no', ${sIdx}, ${qIdx})">${L.noBtn}</button>
+    </div>
+  </div>`;
+}
+
+function toggleHint(hintId, btn, showLabel, hideLabel) {
+  const hint = document.getElementById(hintId);
+  const isOpen = hint.classList.contains('open');
+  hint.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? showLabel : hideLabel;
+}
+
+function setAnswer(qid, val, sIdx, qIdx) {
+  answers[qid] = val;
+  const row = document.getElementById(`row_${qid}`);
+  row.classList.remove('answered-yes', 'answered-no');
+  row.classList.add(val === 'yes' ? 'answered-yes' : 'answered-no');
+
+  // Update buttons
+  row.querySelectorAll('.btn-yn').forEach(b => b.classList.remove('active'));
+  row.querySelectorAll(`.btn-yn.${val}`).forEach(b => b.classList.add('active'));
+
+  // Check if next question is conditional
+  const L = getLang();
+  const section = L.sections[sIdx];
+  if (section && section.questions[qIdx + 1] && section.questions[qIdx + 1].conditional) {
+    updateConditionalVisibility(sIdx, qIdx + 1);
+  }
+
+  updateProgress();
+  document.getElementById('unansweredNotice').style.display = 'none';
+}
+
+function updateConditionalVisibility(sIdx, qIdx) {
+  const L = getLang();
+  const section = L.sections[sIdx];
+  const prevQid = getQuestionId(sIdx, qIdx - 1);
+  const thisQid = getQuestionId(sIdx, qIdx);
+  const prevAns = answers[prevQid];
+  const row = document.getElementById(`row_${thisQid}`);
+  if (!row) return;
+  const show = prevAns === 'yes';
+  row.style.display = show ? '' : 'none';
+  if (!show) {
+    delete answers[thisQid];
+    row.classList.remove('answered-yes', 'answered-no');
+    row.querySelectorAll('.btn-yn').forEach(b => b.classList.remove('active'));
+  }
+}
+
+function getApplicableQuestions() {
+  const L = getLang();
+  const result = [];
+  L.sections.forEach((section, sIdx) => {
+    section.questions.forEach((q, qIdx) => {
+      const qid = getQuestionId(sIdx, qIdx);
+      const row = document.getElementById(`row_${qid}`);
+      if (!row || row.style.display === 'none') return;
+      result.push({ qid, sIdx, qIdx });
+    });
+  });
+  return result;
+}
+
+function updateProgress() {
+  const L = getLang();
+  const applicable = getApplicableQuestions();
+  const answered = applicable.filter(({ qid }) => answers[qid]);
+  const pct = applicable.length ? (answered.length / applicable.length) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent =
+    currentLang === 'ar'
+      ? `تمت الإجابة على ${answered.length} من ${applicable.length} سؤالاً`
+      : `Answered ${answered.length} of ${applicable.length} questions`;
+}
+
+function calculateScore() {
+  const applicable = getApplicableQuestions();
+  const unanswered = applicable.filter(({ qid }) => !answers[qid]);
+
+  if (unanswered.length > 0) {
+    const notice = document.getElementById('unansweredNotice');
+    const L = getLang();
+    notice.textContent = L.unanswered + unanswered.length;
+    notice.style.display = 'block';
+    // Scroll to first unanswered
+    const firstRow = document.getElementById(`row_${unanswered[0].qid}`);
+    if (firstRow) firstRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  showResults();
+  document.getElementById('resultsCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function showResults() {
+  const L = getLang();
+  const applicable = getApplicableQuestions();
+  const total = applicable.length;
+  const scored = applicable.filter(({ qid }) => answers[qid] === 'yes').length;
+  const pct = total > 0 ? Math.round((scored / total) * 100) : 0;
+
+  // Level
+  let levelIdx = 0;
+  if (pct <= 20) levelIdx = 0;
+  else if (pct <= 40) levelIdx = 1;
+  else if (pct <= 60) levelIdx = 2;
+  else if (pct <= 80) levelIdx = 3;
+  else levelIdx = 4;
+
+  const level = L.levels[levelIdx];
+
+  document.getElementById('scorePct').textContent = pct + '%';
+  document.getElementById('scorePts').textContent = scored + '/' + total;
+  document.getElementById('scoreCircle').style.borderColor = ['#e05c5c','#e08c40','#d4b840','#4caf70','#1a8a50'][levelIdx];
+  document.getElementById('scorePct').style.color = ['#8b1a1a','#7a3a00','#6b4a00','#1a5a30','#0f4a28'][levelIdx];
+
+  const badge = document.getElementById('complianceBadge');
+  badge.textContent = level.label;
+  badge.className = 'compliance-badge ' + level.cls;
+
+  document.getElementById('complianceDesc').textContent = level.desc;
+
+  // Level bar
+  for (let i = 0; i < 5; i++) {
+    const seg = document.getElementById('seg' + i);
+    seg.className = 'level-seg' + (i <= levelIdx ? ' active-' + levelIdx : '');
+  }
+
+  // Section breakdown
+  const breakdownList = document.getElementById('breakdownList');
+  breakdownList.innerHTML = '';
+  const dotColors = ['#e05c5c','#e08c40','#d4b840','#4caf70','#1a8a50'];
+
+  L.sections.forEach((section, sIdx) => {
+    const sectionQs = applicable.filter(({ sIdx: s }) => s === sIdx);
+    if (sectionQs.length === 0) return;
+    const sScored = sectionQs.filter(({ qid }) => answers[qid] === 'yes').length;
+    const sTotal = sectionQs.length;
+    const sPct = Math.round((sScored / sTotal) * 100);
+    let dotIdx = 0;
+    if (sPct <= 20) dotIdx = 0;
+    else if (sPct <= 40) dotIdx = 1;
+    else if (sPct <= 60) dotIdx = 2;
+    else if (sPct <= 80) dotIdx = 3;
+    else dotIdx = 4;
+
+    const li = document.createElement('li');
+    li.innerHTML = `<div class="bk-dot" style="background:${dotColors[dotIdx]}"></div>
+      <span class="bk-name">${section.title}</span>
+      <span class="bk-score">${sScored}/${sTotal} &nbsp;(${sPct}%)</span>`;
+    breakdownList.appendChild(li);
+  });
+
+  document.getElementById('resultsCard').classList.add('visible');
+}
+
+function resetAssessment() {
+  answers = {};
+  document.getElementById('resultsCard').classList.remove('visible');
+  document.getElementById('unansweredNotice').style.display = 'none';
+  renderQuestions();
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Init
+renderAll();
+</script>
+</body>
+</html>
